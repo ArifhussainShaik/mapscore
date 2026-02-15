@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { auth } from "@clerk/nextjs/server";
 import { fetchAuditData, fetchCompetitors } from "@/libs/data-provider";
-import { getMockAuditData } from "@/libs/mockData";
+
 import { calculateScore } from "@/libs/scoring";
 import { detectIssues, generateActionPlan } from "@/libs/issues";
 import connectMongo from "@/libs/mongoose";

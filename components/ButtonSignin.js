@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
 
-import { useUser, SignInButton, UserButton } from "@clerk/nextjs";
+import { useUser, SignInButton } from "@clerk/nextjs";
 import Link from "next/link";
 import config from "@/config";
 

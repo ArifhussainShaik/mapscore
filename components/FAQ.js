@@ -89,7 +89,7 @@ const faqList = [
       <div className="space-y-2 leading-relaxed">
         <p>
           A score of 80+ (Grade A) means your profile is well-optimized for local
-          search. Most businesses score between 40–65 on their first audit. Here's
+          search. Most businesses score between 40–65 on their first audit. Here&apos;s
           the breakdown:
         </p>
         <ul className="list-disc list-inside text-sm space-y-1 ml-2">
@@ -112,7 +112,7 @@ const faqList = [
           Absolutely! Just enter any business name and location to run an audit.
           This is a powerful way to benchmark your profile against local competitors.
           Our tool also automatically identifies and analyzes the top competitors in
-          your category and area, showing you exactly where you stand and what they're
+          your category and area, showing you exactly where you stand and what they&apos;re
           doing better.
         </p>
       </div>
