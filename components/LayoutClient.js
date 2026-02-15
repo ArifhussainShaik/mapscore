@@ -59,10 +59,6 @@ const ClientLayout = ({ children }) => {
         id="tooltip"
         className="z-[60] !opacity-100 max-w-sm shadow-lg"
       />
-
-      {/* Set Crisp customer chat support */}
-      <CrispChat />
-    </ClerkProvider >
     </>
   );
 };
