@@ -1,4 +1,5 @@
 import SearchBar from "@/components/SearchBar";
+import FAQ from "@/components/FAQ";
 import config from "@/config";
 import Link from "next/link";
 import ButtonSignin from "@/components/ButtonSignin";
@@ -20,6 +21,7 @@ export default function LandingPage() {
             <a href="#how-it-works" className="text-sm text-base-content/60 hover:text-base-content/90 transition-colors">How It Works</a>
             <a href="#features" className="text-sm text-base-content/60 hover:text-base-content/90 transition-colors">Features</a>
             <a href="#pricing" className="text-sm text-base-content/60 hover:text-base-content/90 transition-colors">Pricing</a>
+            <a href="#faq" className="text-sm text-base-content/60 hover:text-base-content/90 transition-colors">FAQ</a>
           </div>
           <div className="flex items-center gap-3">
             <ButtonSignin text="Log in" extraStyle="btn-sm btn-ghost text-base-content/70" />
@@ -195,7 +197,7 @@ export default function LandingPage() {
                     </li>
                   ))}
                 </ul>
-                <Link href="/api/auth/signin" className="btn btn-outline w-full border-base-content/20 text-base-content/70">
+                <Link href="/sign-up" className="btn btn-outline w-full border-base-content/20 text-base-content/70">
                   Sign Up Free
                 </Link>
               </div>
@@ -319,6 +321,9 @@ export default function LandingPage() {
             </div>
           </div>
         </section>
+
+        {/* ===== FAQ ===== */}
+        <FAQ />
 
         {/* ===== FOOTER ===== */}
         <footer className="border-t border-base-content/10 py-12 px-6">

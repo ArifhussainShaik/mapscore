@@ -1,13 +1,21 @@
-// Middleware — intentionally minimal.
-// Authentication is handled per-page via useSession() hooks.
-// The dashboard page renders its own branded login prompt when unauthenticated.
-// We do NOT use NextAuth middleware here to prevent automatic redirects.
+import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
 
-export function middleware() {
-  // No-op — let pages handle auth themselves
-}
+// Routes that require authentication
+const isProtectedRoute = createRouteMatcher([
+  "/dashboard(.*)",
+]);
+
+export default clerkMiddleware(async (auth, req) => {
+  if (isProtectedRoute(req)) {
+    await auth.protect();
+  }
+});
 
 export const config = {
-  // Only match routes that need middleware processing (currently none)
-  matcher: [],
-}
+  matcher: [
+    // Skip Next.js internals and all static files
+    "/((?!_next|[^?]*\\.(?:html?|css|js(?!on)|jpe?g|webp|png|gif|svg|ttf|woff2?|ico|csv|docx?|xlsx?|zip|webmanifest)).*)",
+    // Always run for API routes
+    "/(api|trpc)(.*)",
+  ],
+};

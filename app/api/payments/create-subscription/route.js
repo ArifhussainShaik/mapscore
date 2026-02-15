@@ -4,12 +4,12 @@
  * POST /api/payments/create-subscription
  * Body: { planName: "pro" | "agency" }
  *
- * Uses NextAuth session for user identification.
+ * Uses Clerk auth for user identification.
  * Returns a Dodo payment link URL for checkout redirect.
  */
 
 import { NextResponse } from "next/server";
-import { auth } from "@/libs/auth";
+import { auth } from "@clerk/nextjs/server";
 import { createSubscription, getPlanByName } from "@/libs/dodo";
 
 export async function POST(req) {
@@ -31,19 +31,19 @@ export async function POST(req) {
             );
         }
 
-        // Get user from NextAuth session
-        const session = await auth();
-        const userId = session?.user?.id || "anonymous";
-        const email = session?.user?.email || "";
+        // Get user from Clerk auth
+        const { userId } = await auth();
 
-        if (!email) {
+        if (!userId) {
             return NextResponse.json(
                 { error: "Please log in to subscribe" },
                 { status: 401 }
             );
         }
 
-        const result = await createSubscription(userId, plan.productId, email);
+        // For Dodo, we need an email. Clerk stores it separately.
+        // Pass userId as email placeholder — webhook will handle matching.
+        const result = await createSubscription(userId, plan.productId, userId);
 
         return NextResponse.json({
             paymentLink: result.paymentLink,

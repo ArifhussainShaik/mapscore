@@ -4,8 +4,7 @@ import toJSON from "./plugins/toJSON";
 const auditSchema = mongoose.Schema(
     {
         userId: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: "User",
+            type: String,
             index: true,
         },
         // Business info
@@ -93,6 +92,8 @@ const auditSchema = mongoose.Schema(
                 source: String,
             },
         ],
+        // Data source tracking
+        dataSource: { type: String },
         // Raw data for debugging
         rawData: { type: Object },
         // Cache

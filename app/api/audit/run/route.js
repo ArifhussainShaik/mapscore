@@ -1,8 +1,11 @@
 import { NextResponse } from "next/server";
+import { auth } from "@clerk/nextjs/server";
 import { fetchAuditData, fetchCompetitors } from "@/libs/data-provider";
 import { getMockAuditData } from "@/libs/mockData";
 import { calculateScore } from "@/libs/scoring";
 import { detectIssues, generateActionPlan } from "@/libs/issues";
+import connectMongo from "@/libs/mongoose";
+import Audit from "@/models/Audit";
 
 export async function POST(req) {
     try {
@@ -47,7 +50,6 @@ export async function POST(req) {
 
         // Build audit result
         const audit = {
-            id: `audit_${Date.now()}`,
             ...rawData,
             totalScore,
             grade,
@@ -62,10 +64,31 @@ export async function POST(req) {
             ).toISOString(),
         };
 
-        // Remove internal metadata from response
+        // Remove internal metadata
         delete audit._source;
         delete audit._serperCid;
         delete audit._outscraper;
+
+        // Save to MongoDB if user is authenticated
+        let savedAuditId = null;
+        try {
+            const { userId } = await auth();
+            if (userId) {
+                await connectMongo();
+                const savedAudit = await Audit.create({
+                    userId,
+                    ...audit,
+                });
+                savedAuditId = savedAudit._id.toString();
+                console.log(`[Audit] Saved to DB for user ${userId}: ${savedAuditId}`);
+            }
+        } catch (dbError) {
+            // Don't fail the audit if DB save fails
+            console.error("[Audit] DB save failed:", dbError.message);
+        }
+
+        // Add the DB id to the response
+        audit.id = savedAuditId || `audit_${Date.now()}`;
 
         return NextResponse.json({ audit });
     } catch (error) {
