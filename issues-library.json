@@ -1,0 +1,659 @@
+{
+  "version": "1.0",
+  "issues": [
+    {
+      "id": "PROF-001",
+      "category": "profile",
+      "name": "No services listed",
+      "severity": "critical",
+      "trigger": "services_count == 0",
+      "what_we_found": "Your Google Business Profile has no services listed in the Services section.",
+      "why_it_matters": "Sterling Sky 2022 retest confirmed that adding services has direct ranking impact. Effects appear within 24-72 hours. Pre-defined services (suggested by Google) have stronger ranking impact than custom services. This is one of the highest-impact quick wins available.",
+      "how_to_fix": [
+        "Go to Google Search and type 'my business'",
+        "Click 'Edit Services' in your dashboard",
+        "Check ALL pre-defined services Google suggests for your categories",
+        "Add custom services for anything not covered by pre-defined options",
+        "Write a brief description (up to 300 characters) for each service",
+        "Include service keywords naturally in descriptions"
+      ],
+      "time_to_fix": "30 minutes",
+      "expected_impact": "High",
+      "time_to_results": "24-72 hours"
+    },
+    {
+      "id": "PROF-002",
+      "category": "profile",
+      "name": "Few services listed",
+      "severity": "high",
+      "trigger": "services_count > 0 AND services_count < 5",
+      "what_we_found": "Your profile has only {services_count} services listed. Most optimized profiles have 10-15+ services.",
+      "why_it_matters": "Each service you add creates another relevance signal for Google. Sterling Sky testing shows pre-defined services have direct ranking impact. You're leaving ranking opportunities on the table.",
+      "how_to_fix": [
+        "Go to Edit Services in your GBP dashboard",
+        "Review all pre-defined services Google suggests",
+        "Add every relevant service your business offers",
+        "Write 300-character descriptions for each service",
+        "Think about every service variation a customer might search for"
+      ],
+      "time_to_fix": "20 minutes",
+      "expected_impact": "Medium-High",
+      "time_to_results": "24-72 hours"
+    },
+    {
+      "id": "PROF-003",
+      "category": "profile",
+      "name": "No business description",
+      "severity": "high",
+      "trigger": "description == null OR description == ''",
+      "what_we_found": "Your Google Business Profile has no business description. You have 750 characters to tell Google and customers what you do.",
+      "why_it_matters": "While description doesn't directly impact rankings (per Sterling Sky testing), it significantly affects engagement and conversions. It's also the primary text Google uses to understand your business for AI search results.",
+      "how_to_fix": [
+        "Go to Google Search, type 'my business'",
+        "Click 'Edit Profile' then navigate to the About tab",
+        "Write a 500-750 character description",
+        "Include your primary service and city in the first 100 characters",
+        "Mention your key services, unique value, and service area",
+        "Do NOT keyword stuff. Write naturally."
+      ],
+      "time_to_fix": "15 minutes",
+      "expected_impact": "Medium",
+      "time_to_results": "1-7 days for description to appear"
+    },
+    {
+      "id": "PROF-004",
+      "category": "profile",
+      "name": "Short description",
+      "severity": "medium",
+      "trigger": "description_length > 0 AND description_length < 250",
+      "what_we_found": "Your business description is only {description_length} characters. You have room for up to 750 characters.",
+      "why_it_matters": "A longer, more detailed description gives Google more context about your business. It also helps potential customers understand your full range of services before they contact you.",
+      "how_to_fix": [
+        "Expand your description to 500-750 characters",
+        "Add details about your specific services",
+        "Mention your service area or neighborhood",
+        "Include what makes your business different",
+        "Add a call to action at the end"
+      ],
+      "time_to_fix": "10 minutes",
+      "expected_impact": "Low-Medium",
+      "time_to_results": "1-7 days"
+    },
+    {
+      "id": "PROF-005",
+      "category": "profile",
+      "name": "Description missing city name",
+      "severity": "medium",
+      "trigger": "description does not contain city_name",
+      "what_we_found": "Your business description does not mention your city ({city_name}). Including your location helps Google connect your business to local searches.",
+      "why_it_matters": "While not a direct ranking factor, mentioning your city in the description reinforces geographic relevance. For AI search platforms, this helps connect your business to location-based queries.",
+      "how_to_fix": [
+        "Edit your description to naturally include your city name",
+        "Ideally place it in the first 100 characters",
+        "Example: '[Business] is a [service] provider in [city]'"
+      ],
+      "time_to_fix": "5 minutes",
+      "expected_impact": "Low",
+      "time_to_results": "1-7 days"
+    },
+    {
+      "id": "PROF-006",
+      "category": "profile",
+      "name": "No secondary categories",
+      "severity": "high",
+      "trigger": "secondary_categories_count == 0",
+      "what_we_found": "Your profile has no secondary categories. You can add up to 9 secondary categories to expand your search visibility.",
+      "why_it_matters": "Joy Hawkins confirmed that more relevant categories help rankings, they do not dilute them. Each secondary category allows your business to appear in additional search queries. Most optimized profiles use 3-5 secondary categories.",
+      "how_to_fix": [
+        "Go to Edit Profile in your GBP dashboard",
+        "Navigate to the category section",
+        "Add 3-5 secondary categories relevant to your services",
+        "Use GMB Everywhere or PlePer to see what categories competitors use",
+        "Only add categories for services you genuinely offer"
+      ],
+      "time_to_fix": "15 minutes",
+      "expected_impact": "Medium-High",
+      "time_to_results": "24-72 hours"
+    },
+    {
+      "id": "PROF-007",
+      "category": "profile",
+      "name": "Only 1-2 secondary categories",
+      "severity": "medium",
+      "trigger": "secondary_categories_count > 0 AND secondary_categories_count < 3",
+      "what_we_found": "Your profile has only {secondary_categories_count} secondary categories. You can add up to 9.",
+      "why_it_matters": "Additional relevant categories expand the search queries where your business appears. Your competitors may have more categories, giving them visibility for searches you're missing.",
+      "how_to_fix": [
+        "Research what additional categories your competitors use",
+        "Add any relevant categories you're missing",
+        "Target 3-5 total secondary categories"
+      ],
+      "time_to_fix": "10 minutes",
+      "expected_impact": "Medium",
+      "time_to_results": "24-72 hours"
+    },
+    {
+      "id": "PROF-008",
+      "category": "profile",
+      "name": "Primary category may be suboptimal",
+      "severity": "critical",
+      "trigger": "primary_category != most_common_competitor_category",
+      "what_we_found": "Your primary category '{primary_category}' differs from what your top competitors use. Most competitors in your area use '{competitor_common_category}'.",
+      "why_it_matters": "Whitespark 2026: Primary category is the #1 controllable local pack ranking factor. 84% of top-3 ranking businesses had categories closely matching competitors (BrightLocal). A single category change caused a documented drop from #1 to #31 (Joy Hawkins).",
+      "how_to_fix": [
+        "Research competitor categories using GMB Everywhere or PlePer",
+        "Record your current rankings as a baseline",
+        "Test switching to the competitor-matching category",
+        "Monitor rankings for 60-90 days",
+        "If rankings improve, keep the new category",
+        "If rankings drop, switch back immediately"
+      ],
+      "time_to_fix": "5 minutes (research takes 30 minutes)",
+      "expected_impact": "Very High",
+      "time_to_results": "24-72 hours"
+    },
+    {
+      "id": "PROF-009",
+      "category": "profile",
+      "name": "Hours not set",
+      "severity": "critical",
+      "trigger": "hours == null OR hours_empty",
+      "what_we_found": "Your business hours are not set on your Google Business Profile.",
+      "why_it_matters": "Joy Hawkins discovered that business hours are a top-5 ranking factor (November 2023 core update). Businesses without hours set are at a significant disadvantage. Google may show you as 'Hours not available' which reduces customer trust.",
+      "how_to_fix": [
+        "Go to Edit Profile in your GBP dashboard",
+        "Navigate to Hours section",
+        "Set accurate hours for each day of the week",
+        "Consider extending hours if possible (opens more search visibility)",
+        "Set special hours for upcoming holidays"
+      ],
+      "time_to_fix": "5 minutes",
+      "expected_impact": "Very High",
+      "time_to_results": "Immediate"
+    },
+    {
+      "id": "PROF-010",
+      "category": "profile",
+      "name": "Limited business hours",
+      "severity": "medium",
+      "trigger": "average_daily_hours < 8",
+      "what_we_found": "Your business is open an average of {average_daily_hours} hours per day. This limits when you appear in search results.",
+      "why_it_matters": "Joy Hawkins: Businesses vanish from the local pack when closed. Rankings begin degrading in the final hour of operation. Longer hours = more visibility windows throughout the day.",
+      "how_to_fix": [
+        "Evaluate if you can extend hours (even by 1-2 hours)",
+        "Check what hours your competitors list",
+        "Consider opening when competitors are closed (evenings, weekends)",
+        "For service businesses: consider hiring an answering service for extended hours"
+      ],
+      "time_to_fix": "5 minutes to update (business decision required)",
+      "expected_impact": "Medium-High",
+      "time_to_results": "Immediate"
+    },
+    {
+      "id": "PROF-011",
+      "category": "profile",
+      "name": "Closed on weekends while competitors are open",
+      "severity": "medium",
+      "trigger": "closed_weekends AND competitors_open_weekends",
+      "what_we_found": "Your business is closed on weekends, but {competitors_open_count} of your top 3 competitors are open.",
+      "why_it_matters": "Weekend searches are high-intent. If you're closed and competitors are open, Google shows them instead of you. You're missing prime search visibility.",
+      "how_to_fix": [
+        "Consider opening at least Saturday (even limited hours)",
+        "If not possible, ensure your website captures weekend searchers",
+        "Update special hours for any weekend availability"
+      ],
+      "time_to_fix": "Business decision",
+      "expected_impact": "Medium",
+      "time_to_results": "Immediate once hours updated"
+    },
+    {
+      "id": "PROF-012",
+      "category": "profile",
+      "name": "Missing common attributes",
+      "severity": "low",
+      "trigger": "attributes_completion < 50%",
+      "what_we_found": "Your profile is missing several attributes that are common for your business category.",
+      "why_it_matters": "Whitespark 2026 ranks attributes as low-moderate impact. They build trust and help customers make decisions. Completed attributes signal a well-maintained profile to Google.",
+      "how_to_fix": [
+        "Go to Edit Profile, then More section",
+        "Complete all applicable attributes (accessibility, amenities, payments, service options)",
+        "Remove any contradictory attributes",
+        "Review what attributes competitors have set"
+      ],
+      "time_to_fix": "10 minutes",
+      "expected_impact": "Low",
+      "time_to_results": "1-7 days"
+    },
+    {
+      "id": "PROF-013",
+      "category": "profile",
+      "name": "No website linked",
+      "severity": "critical",
+      "trigger": "website_url == null OR website_url == ''",
+      "what_we_found": "Your Google Business Profile has no website linked.",
+      "why_it_matters": "Whitespark 2026 ranks 'Dedicated Page for Each Service on Website' as the #1 factor for local organic rankings and #2 for AI visibility. Without a website, you're missing the second-largest ranking factor category (18% of total ranking signals).",
+      "how_to_fix": [
+        "Build a basic website with at least 5 pages: Home, Services, About, Contact, Service Area",
+        "Include your full NAP (name, address, phone) on every page",
+        "Add LocalBusiness schema markup",
+        "Embed a Google Map on your contact page",
+        "Link the website to your GBP under Contact Information"
+      ],
+      "time_to_fix": "1-2 weeks for a basic website",
+      "expected_impact": "Very High",
+      "time_to_results": "2-4 weeks for indexing, 1-3 months for ranking impact"
+    },
+    {
+      "id": "REV-001",
+      "category": "reviews",
+      "name": "Under 10 total reviews",
+      "severity": "critical",
+      "trigger": "review_count < 10",
+      "what_we_found": "Your profile has only {review_count} reviews. This is below the minimum threshold for competitive visibility.",
+      "why_it_matters": "Search Atlas ML Study: Review count is 19.2% of ranking variance for all positions, and 26% for top 10 positions. Businesses with fewer than 10 reviews struggle to appear in the local pack for competitive searches.",
+      "how_to_fix": [
+        "Start asking every satisfied customer for a review",
+        "Send a direct Google review link (find it in your GBP dashboard under 'Ask for reviews')",
+        "Ask within 24-48 hours of a positive interaction",
+        "Follow up once after 3-5 days if no review",
+        "Consider QR codes at your location pointing to the review link",
+        "Target: 1-3 new reviews per week consistently"
+      ],
+      "time_to_fix": "Ongoing process",
+      "expected_impact": "Very High",
+      "time_to_results": "2-6 weeks for ranking impact as reviews accumulate"
+    },
+    {
+      "id": "REV-002",
+      "category": "reviews",
+      "name": "Fewer reviews than competitors",
+      "severity": "high",
+      "trigger": "review_count < competitor_average_reviews * 0.75",
+      "what_we_found": "You have {review_count} reviews. Your top 3 competitors average {competitor_average_reviews} reviews. You're {review_gap} reviews behind.",
+      "why_it_matters": "Search Atlas ML Study: Review count becomes the primary battleground once proximity is competitive. At 26% influence for top 10 positions, closing the review gap is essential for ranking improvement.",
+      "how_to_fix": [
+        "Calculate your monthly review target: competitor average divided by their business age",
+        "Match competitor velocity plus 1 extra review per month",
+        "Implement a consistent review generation system",
+        "Never request reviews in bursts. Steady flow is key.",
+        "Train staff to ask for reviews at point of service"
+      ],
+      "time_to_fix": "Ongoing",
+      "expected_impact": "High",
+      "time_to_results": "2-6 weeks, cumulative effect"
+    },
+    {
+      "id": "REV-003",
+      "category": "reviews",
+      "name": "No review in 30+ days",
+      "severity": "critical",
+      "trigger": "days_since_last_review > 30",
+      "what_we_found": "Your most recent review is {days_since_last_review} days old. You have not received a review in over a month.",
+      "why_it_matters": "Darren Shaw (Whitespark 2026): Review recency moved from #20 to a top-5 ranking factor. His exact words: 'The moment you stop getting new reviews, you're going to see your local rankings start to slip.' This is actively hurting your rankings right now.",
+      "how_to_fix": [
+        "Send review requests to your 5 most recent satisfied customers today",
+        "Set up a weekly review request process",
+        "Use a direct review link to reduce friction",
+        "Consider review automation tools (Podium, Birdeye, Whitespark)",
+        "Target: at least 1 new review per week minimum"
+      ],
+      "time_to_fix": "15 minutes to send requests, ongoing to maintain",
+      "expected_impact": "Very High",
+      "time_to_results": "Immediate once new reviews start arriving"
+    },
+    {
+      "id": "REV-004",
+      "category": "reviews",
+      "name": "Low review velocity",
+      "severity": "high",
+      "trigger": "monthly_review_velocity < 1",
+      "what_we_found": "You're averaging less than 1 review per month. This velocity is too low to maintain or improve rankings.",
+      "why_it_matters": "Whitespark 2026 recommends matching competitor velocity plus 1. Consistent, ongoing review generation is a top-5 ranking factor. Sporadic bursts are less effective than steady flow.",
+      "how_to_fix": [
+        "Implement a systematic review request process",
+        "Ask every customer, not just happy ones",
+        "Timing matters: ask within 24-48 hours of positive interaction",
+        "Send one polite reminder after 3-5 days if no review",
+        "Target: 2-4 reviews per month minimum"
+      ],
+      "time_to_fix": "Process setup: 30 minutes. Execution: ongoing.",
+      "expected_impact": "High",
+      "time_to_results": "2-4 weeks"
+    },
+    {
+      "id": "REV-005",
+      "category": "reviews",
+      "name": "No review responses from owner",
+      "severity": "high",
+      "trigger": "response_rate == 0",
+      "what_we_found": "You have not responded to any of your {review_count} reviews.",
+      "why_it_matters": "Harvard Business Review: Businesses that reply to reviews receive 12% more reviews. While review responses have low-moderate direct ranking impact, they significantly affect customer perception and conversion. Responding shows you're active and care about customers.",
+      "how_to_fix": [
+        "Start responding to your most recent reviews first",
+        "Use customer's first name in each response",
+        "Reference the specific service they mentioned",
+        "Keep responses under 80 words",
+        "For negative reviews: acknowledge, empathize, offer offline resolution",
+        "Target: respond to all reviews within 24-48 hours going forward"
+      ],
+      "time_to_fix": "1-2 hours to clear backlog, then 5 minutes per new review",
+      "expected_impact": "Medium",
+      "time_to_results": "Ongoing"
+    },
+    {
+      "id": "REV-006",
+      "category": "reviews",
+      "name": "Low response rate",
+      "severity": "medium",
+      "trigger": "response_rate > 0 AND response_rate < 50",
+      "what_we_found": "You've responded to only {response_rate}% of your reviews. Best practice is 80% or higher.",
+      "why_it_matters": "Consistent review responses signal an active, engaged business. Businesses with high response rates receive more reviews and convert more profile visitors into customers.",
+      "how_to_fix": [
+        "Set aside 10 minutes daily to check and respond to reviews",
+        "Respond to unanswered reviews in batches over the next week",
+        "Vary your responses so they don't look copy-pasted",
+        "Target: 80%+ response rate"
+      ],
+      "time_to_fix": "1 hour to clear backlog",
+      "expected_impact": "Low-Medium",
+      "time_to_results": "Ongoing"
+    },
+    {
+      "id": "REV-007",
+      "category": "reviews",
+      "name": "Rating below 4.0",
+      "severity": "high",
+      "trigger": "average_rating < 4.0",
+      "what_we_found": "Your average rating is {average_rating} stars. This is below the 4.0 threshold that most customers consider acceptable.",
+      "why_it_matters": "Search Atlas ML Study: Ratings account for 3.8% of ranking variance. More importantly, customers filter search results by rating. Below 4.0, you lose significant click-through from search results.",
+      "how_to_fix": [
+        "Respond professionally to all negative reviews",
+        "Identify and fix recurring service complaints",
+        "Increase review volume from satisfied customers to dilute negative reviews",
+        "Never ask customers to change or delete reviews",
+        "Focus on service quality improvement"
+      ],
+      "time_to_fix": "Ongoing service improvement",
+      "expected_impact": "High (for conversions)",
+      "time_to_results": "Gradual as new positive reviews accumulate"
+    },
+    {
+      "id": "VIS-001",
+      "category": "visual",
+      "name": "Under 5 photos",
+      "severity": "high",
+      "trigger": "photo_count < 5",
+      "what_we_found": "Your profile has only {photo_count} photos. This is well below the recommended minimum of 20-50.",
+      "why_it_matters": "Whitespark 2026: Photo quantity and quality is ranked #8 in local pack factors. Photos are a moderate ranking signal and a major engagement signal. Profiles with more photos get more clicks and customer actions.",
+      "how_to_fix": [
+        "Upload at least 20 photos immediately",
+        "Include: exterior (3-5), interior (5-10), team (3-5), products/services (5-10)",
+        "Use real photos, not stock images",
+        "Ensure photos are well-lit and in focus",
+        "Add new photos monthly to show freshness",
+        "Note: Geotagging photos does NOT help rankings (Sterling Sky tested)"
+      ],
+      "time_to_fix": "30-60 minutes",
+      "expected_impact": "Medium",
+      "time_to_results": "Engagement improvements within weeks"
+    },
+    {
+      "id": "VIS-002",
+      "category": "visual",
+      "name": "Under 20 photos",
+      "severity": "medium",
+      "trigger": "photo_count >= 5 AND photo_count < 20",
+      "what_we_found": "Your profile has {photo_count} photos. Optimized profiles typically have 50+ photos.",
+      "why_it_matters": "More photos give customers a better picture of your business. Google values photo quantity as an engagement signal. Profiles with 50+ photos tend to get more customer interactions.",
+      "how_to_fix": [
+        "Add photos across all categories: exterior, interior, team, products, action shots",
+        "Target reaching 50+ total photos",
+        "Upload 5-10 new photos each month",
+        "Ask customers to upload photos too (user-generated content helps)"
+      ],
+      "time_to_fix": "30 minutes",
+      "expected_impact": "Low-Medium",
+      "time_to_results": "Weeks"
+    },
+    {
+      "id": "VIS-003",
+      "category": "visual",
+      "name": "No logo uploaded",
+      "severity": "medium",
+      "trigger": "has_logo == false",
+      "what_we_found": "Your profile does not have a logo uploaded.",
+      "why_it_matters": "The logo appears in search results, Maps, and your GBP listing. Missing logo makes your business look unprofessional and reduces brand recognition.",
+      "how_to_fix": [
+        "Upload your business logo in square format",
+        "Recommended: 720x720 pixels, PNG or JPG",
+        "Keep it simple and recognizable at small sizes"
+      ],
+      "time_to_fix": "5 minutes",
+      "expected_impact": "Low (brand perception)",
+      "time_to_results": "Immediate"
+    },
+    {
+      "id": "VIS-004",
+      "category": "visual",
+      "name": "No cover photo",
+      "severity": "medium",
+      "trigger": "has_cover_photo == false",
+      "what_we_found": "Your profile does not have a cover photo set.",
+      "why_it_matters": "The cover photo is the primary visual when someone views your GBP listing. Without it, Google selects a photo automatically, which may not represent your business well.",
+      "how_to_fix": [
+        "Choose your best exterior or interior photo as cover",
+        "Recommended: 1080x608 pixels (16:9 ratio)",
+        "Should clearly represent your business",
+        "Avoid text-heavy images"
+      ],
+      "time_to_fix": "5 minutes",
+      "expected_impact": "Low (engagement)",
+      "time_to_results": "Immediate"
+    },
+    {
+      "id": "ACT-001",
+      "category": "activity",
+      "name": "No posts visible",
+      "severity": "medium",
+      "trigger": "post_count == 0 OR no_visible_posts",
+      "what_we_found": "Your profile has no visible posts or updates.",
+      "why_it_matters": "Sterling Sky testing shows posts don't directly boost rankings. But posts appear prominently in your listing, demonstrate business activity, and improve customer engagement. Google promotes active profiles.",
+      "how_to_fix": [
+        "Start posting weekly updates on your GBP",
+        "Share: promotions, new services, tips, customer highlights, events",
+        "Include a photo with every post",
+        "Add a call-to-action button (Call, Book, Learn More)",
+        "Keep posts 150-300 words"
+      ],
+      "time_to_fix": "15 minutes per post",
+      "expected_impact": "Low-Medium",
+      "time_to_results": "Engagement improvements within days"
+    },
+    {
+      "id": "ACT-002",
+      "category": "activity",
+      "name": "No post in 30+ days",
+      "severity": "medium",
+      "trigger": "days_since_last_post > 30",
+      "what_we_found": "Your last post was {days_since_last_post} days ago. Your profile appears inactive.",
+      "why_it_matters": "While posts don't directly boost rankings (Sterling Sky), an inactive profile signals to customers that the business may not be actively operating. Competitors who post regularly will have more engaging listings.",
+      "how_to_fix": [
+        "Publish a post today",
+        "Set a weekly posting schedule",
+        "Use a content calendar to plan posts in advance",
+        "Batch-create posts for the month in one sitting"
+      ],
+      "time_to_fix": "15 minutes",
+      "expected_impact": "Low-Medium",
+      "time_to_results": "Immediate visibility on profile"
+    },
+    {
+      "id": "WEB-001",
+      "category": "website",
+      "name": "No website linked to GBP",
+      "severity": "critical",
+      "trigger": "website_url == null",
+      "what_we_found": "No website is linked to your Google Business Profile.",
+      "why_it_matters": "Whitespark 2026: Website/On-Page factors account for 18% of local pack ranking signals. 'Dedicated Page for Each Service' is the #1 factor for local organic rankings. Without a website, you're missing the largest category of optimizable ranking signals after GBP itself.",
+      "how_to_fix": [
+        "Build a basic website with these essential pages:",
+        "Homepage with your NAP, primary service, and city",
+        "Individual service pages for each service you offer",
+        "About page with your story and team",
+        "Contact page with embedded Google Map and click-to-call phone",
+        "Service area page listing all areas you serve",
+        "Add LocalBusiness schema markup to every page",
+        "Once live, add the URL to your GBP under Contact Information"
+      ],
+      "time_to_fix": "1-2 weeks",
+      "expected_impact": "Very High",
+      "time_to_results": "2-4 weeks for indexing, 1-3 months for ranking impact"
+    },
+    {
+      "id": "WEB-002",
+      "category": "website",
+      "name": "Website not HTTPS",
+      "severity": "high",
+      "trigger": "website_https == false",
+      "what_we_found": "Your website does not use HTTPS. It loads on HTTP which browsers flag as 'Not Secure'.",
+      "why_it_matters": "Google has used HTTPS as a ranking signal since 2014. Browsers show warning messages on HTTP sites, which scares away customers. HTTPS is a basic trust signal.",
+      "how_to_fix": [
+        "Install an SSL certificate on your website",
+        "Most hosting providers offer free SSL (Let's Encrypt)",
+        "Redirect all HTTP URLs to HTTPS",
+        "Update your GBP website link to use https://"
+      ],
+      "time_to_fix": "15-30 minutes with most hosts",
+      "expected_impact": "Medium",
+      "time_to_results": "Immediate for trust, 2-4 weeks for ranking"
+    },
+    {
+      "id": "WEB-003",
+      "category": "website",
+      "name": "Website not loading",
+      "severity": "critical",
+      "trigger": "website_loads == false",
+      "what_we_found": "The website linked to your GBP ({website_url}) is not loading. It returns an error or times out.",
+      "why_it_matters": "A broken website link on your GBP is worse than no website at all. It signals an abandoned or unreliable business. Google cannot crawl your site for ranking signals. Customers who click will leave immediately.",
+      "how_to_fix": [
+        "Check if your domain registration has expired",
+        "Check if your hosting is active and paid",
+        "Contact your hosting provider to resolve the issue",
+        "If the website is permanently down, remove the link from GBP until fixed",
+        "Consider building a new website if the old one is abandoned"
+      ],
+      "time_to_fix": "Varies (could be minutes to days)",
+      "expected_impact": "Very High",
+      "time_to_results": "Immediate once fixed"
+    },
+    {
+      "id": "WEB-004",
+      "category": "website",
+      "name": "Website not mobile responsive",
+      "severity": "high",
+      "trigger": "website_mobile == false",
+      "what_we_found": "Your website is not mobile responsive. It does not adapt properly to mobile screens.",
+      "why_it_matters": "Google uses mobile-first indexing. Over 60% of local searches happen on mobile devices. A non-responsive website hurts both rankings and customer experience.",
+      "how_to_fix": [
+        "If using a website builder: switch to a mobile-responsive template",
+        "If custom built: add responsive CSS or rebuild with a modern framework",
+        "Test with Google's Mobile-Friendly Test: search.google.com/test/mobile-friendly",
+        "Priority: ensure phone number is click-to-call on mobile"
+      ],
+      "time_to_fix": "Hours to days depending on current site",
+      "expected_impact": "High",
+      "time_to_results": "2-4 weeks after fix"
+    },
+    {
+      "id": "WEB-005",
+      "category": "website",
+      "name": "No NAP on homepage",
+      "severity": "medium",
+      "trigger": "website_has_nap == false",
+      "what_we_found": "Your website homepage does not show your full business name, address, and phone number (NAP).",
+      "why_it_matters": "NAP consistency between your GBP and website is a core trust signal. Google compares the NAP on your website with your GBP listing. Mismatches or missing NAP weaken your citation/trust signals (13% of ranking factors).",
+      "how_to_fix": [
+        "Add your full NAP to your website footer (appears on every page)",
+        "Format it exactly as it appears on your GBP listing",
+        "Make the phone number click-to-call",
+        "Add the same NAP in structured data (LocalBusiness schema)"
+      ],
+      "time_to_fix": "15-30 minutes",
+      "expected_impact": "Medium",
+      "time_to_results": "2-4 weeks"
+    },
+    {
+      "id": "COMP-001",
+      "category": "competitive",
+      "name": "Major review gap vs. competitors",
+      "severity": "high",
+      "trigger": "review_count < competitor_average * 0.5",
+      "what_we_found": "You have {review_count} reviews. Your top 3 competitors average {competitor_average_reviews}. That's a gap of {review_gap} reviews.",
+      "why_it_matters": "Search Atlas ML Study: For top 10 positions, review count influences 26% of ranking variance. A significant review gap means competitors have a major advantage that grows every month they maintain higher velocity.",
+      "how_to_fix": [
+        "Calculate your target monthly velocity: competitor average / their estimated months in business",
+        "Beat that velocity by at least 1 review per month",
+        "Implement systematic review requests for every customer",
+        "Consider review generation tools to automate the process",
+        "Timeline to close the gap: {estimated_months_to_close} months at recommended velocity"
+      ],
+      "time_to_fix": "Ongoing",
+      "expected_impact": "Very High",
+      "time_to_results": "Cumulative over months"
+    },
+    {
+      "id": "COMP-002",
+      "category": "competitive",
+      "name": "Rating below market average",
+      "severity": "medium",
+      "trigger": "average_rating < competitor_average_rating",
+      "what_we_found": "Your rating ({average_rating}) is below the competitor average ({competitor_average_rating}).",
+      "why_it_matters": "While rating has lower ranking impact than count or recency (3.8% per Search Atlas ML), customers visually compare ratings in search results. Lower ratings reduce click-through rate.",
+      "how_to_fix": [
+        "Focus on service quality to earn genuine high ratings",
+        "Respond professionally to all negative reviews",
+        "Increase review volume from satisfied customers",
+        "Do NOT incentivize 5-star reviews (Google guideline violation)"
+      ],
+      "time_to_fix": "Ongoing",
+      "expected_impact": "Medium (conversions)",
+      "time_to_results": "Gradual"
+    },
+    {
+      "id": "COMP-003",
+      "category": "competitive",
+      "name": "Photo gap vs. competitors",
+      "severity": "low",
+      "trigger": "photo_count < competitor_average_photos * 0.5",
+      "what_we_found": "You have {photo_count} photos. Your competitors average {competitor_average_photos}. You need {photo_gap} more photos to match them.",
+      "why_it_matters": "Photos are a moderate ranking signal (Whitespark 2026 #8 factor) and a strong engagement signal. More photos give your listing more visual content for customers browsing.",
+      "how_to_fix": [
+        "Upload {photo_gap} additional photos to match competitors",
+        "Focus on variety: exterior, interior, team, products, action shots",
+        "Add new photos monthly to maintain freshness",
+        "Ask satisfied customers to upload photos too"
+      ],
+      "time_to_fix": "30-60 minutes",
+      "expected_impact": "Low-Medium",
+      "time_to_results": "Weeks"
+    },
+    {
+      "id": "COMP-004",
+      "category": "competitive",
+      "name": "Competitors post more frequently",
+      "severity": "low",
+      "trigger": "post_frequency < competitor_average_post_frequency",
+      "what_we_found": "Your competitors post more frequently than you. They average {competitor_post_frequency} while you post {user_post_frequency}.",
+      "why_it_matters": "While posts don't directly boost rankings (Sterling Sky), active profiles with regular posts demonstrate business vitality. Customers see your latest posts when viewing your listing.",
+      "how_to_fix": [
+        "Match or exceed competitor posting frequency",
+        "Minimum: 1 post per week",
+        "Include photos and CTAs in every post",
+        "Plan posts using a content calendar"
+      ],
+      "time_to_fix": "15 minutes per post",
+      "expected_impact": "Low",
+      "time_to_results": "Ongoing engagement benefit"
+    }
+  ]
+}

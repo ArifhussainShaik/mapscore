@@ -1,0 +1,144 @@
+import issuesLibrary from "@/issues-library.json";
+
+/**
+ * Detect issues from audit data and return matched issues sorted by severity.
+ * @param {Object} auditData - The raw audit data
+ * @returns {Array} Array of matched issues with full details
+ */
+export function detectIssues(auditData) {
+    const matched = [];
+
+    for (const issue of issuesLibrary.issues) {
+        if (shouldTrigger(issue, auditData)) {
+            matched.push({
+                id: issue.id,
+                category: issue.category,
+                name: issue.name,
+                severity: issue.severity,
+                description: issue.what_we_found,
+                whyItMatters: issue.why_it_matters,
+                howToFix: issue.how_to_fix,
+                timeToFix: issue.time_to_fix,
+                expectedImpact: issue.expected_impact,
+                timeToResults: issue.time_to_results,
+            });
+        }
+    }
+
+    // Sort by severity: critical > high > medium > low
+    const severityOrder = { critical: 0, high: 1, medium: 2, low: 3 };
+    matched.sort(
+        (a, b) =>
+            (severityOrder[a.severity] ?? 4) - (severityOrder[b.severity] ?? 4)
+    );
+
+    return matched;
+}
+
+/**
+ * Evaluate if an issue trigger condition is met.
+ */
+function shouldTrigger(issue, data) {
+    const t = issue.trigger;
+    if (!t) return false;
+
+    // Profile issues
+    if (t.includes("services_count == 0") && (!data.services || data.services.length === 0)) return true;
+    if (t.includes("services_count > 0 AND services_count < 5") && data.services?.length > 0 && data.services.length < 5) return true;
+    if (t.includes("description == null") && (!data.description || data.description === "")) return true;
+    if (t.includes("description_length > 0 AND description_length < 250") && data.description && data.description.length > 0 && data.description.length < 250) return true;
+    if (t.includes("description does not contain city_name") && data.description && data.businessAddress) {
+        const city = data.businessAddress.split(",")[1]?.trim();
+        if (city && !data.description.toLowerCase().includes(city.toLowerCase())) return true;
+    }
+    if (t.includes("secondary_categories_count == 0") && (!data.secondaryCategories || data.secondaryCategories.length === 0)) return true;
+    if (t.includes("secondary_categories_count > 0 AND secondary_categories_count < 3") && data.secondaryCategories?.length > 0 && data.secondaryCategories.length < 3) return true;
+    if (t.includes("primary_category != most_common_competitor_category") && data.competitors?.length > 0) {
+        const cats = data.competitors.map((c) => c.category?.toLowerCase());
+        if (!cats.includes(data.primaryCategory?.toLowerCase())) return true;
+    }
+    if (t.includes("hours == null") && (!data.hours || Object.keys(data.hours).length === 0)) return true;
+    if (t.includes("average_daily_hours < 8") && data.hours) {
+        // Simplified check
+        const dayCount = Object.keys(data.hours).length;
+        if (dayCount < 5) return true;
+    }
+    if (t.includes("closed_weekends AND competitors_open_weekends") && data.hours) {
+        const hasWeekend = data.hours.saturday || data.hours.sunday || data.hours.Saturday || data.hours.Sunday;
+        if (!hasWeekend) return true;
+    }
+    if (t.includes("attributes_completion < 50%") && data.attributes) {
+        if (Object.keys(data.attributes).length < 5) return true;
+    }
+
+    // Review issues
+    if (t === "review_count < 10" && (data.reviewCount ?? 0) < 10) return true;
+    if (t === "review_count < competitor_average" && data.competitors?.length > 0) {
+        const avg = data.competitors.reduce((s, c) => s + (c.reviewCount || 0), 0) / data.competitors.length;
+        if ((data.reviewCount ?? 0) < avg) return true;
+    }
+    if (t === "no_review_in_30_days" && data.recentReviewDate) {
+        const days = Math.floor((Date.now() - new Date(data.recentReviewDate).getTime()) / (1000 * 60 * 60 * 24));
+        if (days > 30) return true;
+    }
+    if (t === "review_velocity < 1" && (data.monthlyReviewVelocity ?? 0) < 1) return true;
+    if (t === "response_rate == 0" && (data.responseRate ?? 0) === 0) return true;
+    if (t === "response_rate < 0.5" && data.responseRate != null && data.responseRate < 0.5 && data.responseRate > 0) return true;
+    if (t === "rating < 4.0" && data.averageRating != null && data.averageRating < 4.0) return true;
+
+    // Visual issues
+    if (t === "photo_count < 5" && (data.photoCount ?? 0) < 5) return true;
+    if (t === "photo_count < 20" && (data.photoCount ?? 0) < 20 && (data.photoCount ?? 0) >= 5) return true;
+    if (t === "no_logo" && !data.hasLogo) return true;
+    if (t === "no_cover_photo" && !data.hasCoverPhoto) return true;
+    if (t === "no_recent_photos" && data.photoCount > 0 && data.ownerPhotoCount === 0) return true;
+
+    // Activity issues
+    if (t === "no_posts_visible" && !data.lastPostDate) return true;
+    if (t === "no_post_30_days" && data.lastPostDate) {
+        const days = Math.floor((Date.now() - new Date(data.lastPostDate).getTime()) / (1000 * 60 * 60 * 24));
+        if (days > 30) return true;
+    }
+
+    // Website issues
+    if (t === "no_website" && !data.websiteUrl) return true;
+    if (t === "website_not_https" && data.websiteUrl && !data.websiteHttps) return true;
+    if (t === "website_not_loading" && data.websiteUrl && data.websiteLoads === false) return true;
+    if (t === "website_not_mobile" && data.websiteUrl && data.websiteMobile === false) return true;
+    if (t === "no_nap_on_homepage" && data.websiteUrl && !data.websiteHasNap) return true;
+
+    return false;
+}
+
+/**
+ * Generate a prioritized action plan from detected issues.
+ * @param {Array} issues - Array of detected issues
+ * @returns {{ doToday: Array, thisMonth: Array, ongoing: Array }}
+ */
+export function generateActionPlan(issues) {
+    const doToday = [];
+    const thisMonth = [];
+    const ongoing = [];
+
+    for (const issue of issues) {
+        const action = {
+            action: `Fix: ${issue.name}`,
+            timeEstimate: issue.timeToFix,
+            impact: issue.expectedImpact,
+            issueId: issue.id,
+        };
+
+        if (
+            issue.severity === "critical" ||
+            (issue.severity === "high" && issue.timeToFix?.includes("5 min"))
+        ) {
+            doToday.push(action);
+        } else if (issue.severity === "high" || issue.severity === "medium") {
+            thisMonth.push(action);
+        } else {
+            ongoing.push(action);
+        }
+    }
+
+    return { doToday, thisMonth, ongoing };
+}
