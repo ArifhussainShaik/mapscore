@@ -1,10 +1,20 @@
+/**
+ * Create Subscription Route.
+ *
+ * POST /api/payments/create-subscription
+ * Body: { planName: "pro" | "agency" }
+ *
+ * Uses NextAuth session for user identification.
+ * Returns a Dodo payment link URL for checkout redirect.
+ */
+
 import { NextResponse } from "next/server";
-import { createSubscription } from "@/libs/dodo";
-import { getPlanByName } from "@/libs/dodo";
+import { auth } from "@/libs/auth";
+import { createSubscription, getPlanByName } from "@/libs/dodo";
 
 export async function POST(req) {
     try {
-        const { planName, userId } = await req.json();
+        const { planName } = await req.json();
 
         if (!planName) {
             return NextResponse.json(
@@ -21,14 +31,19 @@ export async function POST(req) {
             );
         }
 
-        // TODO: Get userId from NextAuth session
-        // const session = await getServerSession(authOptions);
-        // const userId = session?.user?.id;
+        // Get user from NextAuth session
+        const session = await auth();
+        const userId = session?.user?.id || "anonymous";
+        const email = session?.user?.email || "";
 
-        const result = await createSubscription(
-            userId || "mock_user",
-            plan.productId
-        );
+        if (!email) {
+            return NextResponse.json(
+                { error: "Please log in to subscribe" },
+                { status: 401 }
+            );
+        }
+
+        const result = await createSubscription(userId, plan.productId, email);
 
         return NextResponse.json({
             paymentLink: result.paymentLink,

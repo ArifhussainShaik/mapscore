@@ -1,50 +1,164 @@
 /**
- * Dodo Payments helper functions.
- * Replace with real Dodo SDK calls when ready for production.
+ * Dodo Payments integration using the official SDK.
+ * Handles subscriptions, customer portal, and webhook verification.
+ *
+ * SDK docs: https://docs.dodopayments.com
+ * Packages: dodopayments, @dodopayments/nextjs, standardwebhooks
  */
 
+import DodoPayments from "dodopayments";
+import { Webhook } from "standardwebhooks";
 import config from "@/config";
+
+// ─────────────────────────────────────────────
+// SDK Client (Singleton)
+// ─────────────────────────────────────────────
+
+let dodoClient = null;
+
+function getClient() {
+    if (!dodoClient && process.env.DODO_PAYMENTS_API_KEY) {
+        dodoClient = new DodoPayments({
+            bearerToken: process.env.DODO_PAYMENTS_API_KEY,
+            environment: process.env.DODO_PAYMENTS_ENVIRONMENT === "live_mode"
+                ? "live_mode"
+                : "test_mode",
+        });
+    }
+    return dodoClient;
+}
+
+/**
+ * Check if Dodo Payments is configured.
+ */
+export function isDodoConfigured() {
+    return !!process.env.DODO_PAYMENTS_API_KEY;
+}
+
+// ─────────────────────────────────────────────
+// Subscriptions
+// ─────────────────────────────────────────────
 
 /**
  * Create a Dodo subscription for a user.
+ * Returns a payment link URL that redirects the user to Dodo's checkout.
+ *
  * @param {string} userId - The user's MongoDB ID
- * @param {string} productId - The Dodo product ID
- * @returns {{ paymentLink: string, subscriptionId: string }}
+ * @param {string} productId - The Dodo product ID (prd_XXXXX)
+ * @param {string} email - The user's email address
+ * @returns {Promise<{ paymentLink: string, subscriptionId: string }>}
  */
-export async function createSubscription(userId, productId) {
-    // TODO: Replace with real Dodo API call
-    // const dodo = require('dodopayments');
-    // const subscription = await dodo.subscriptions.create({ ... });
+export async function createSubscription(userId, productId, email) {
+    const client = getClient();
 
-    // Mock response for development
-    return {
-        paymentLink: `https://test.dodopayments.com/checkout/${productId}?ref=${userId}`,
-        subscriptionId: `sub_mock_${Date.now()}`,
-    };
+    if (!client) {
+        console.warn("[Dodo] Not configured — returning mock payment link");
+        return {
+            paymentLink: `https://test.dodopayments.com/checkout/${productId}?ref=${userId}`,
+            subscriptionId: `sub_mock_${Date.now()}`,
+        };
+    }
+
+    try {
+        const subscription = await client.subscriptions.create({
+            billing: {
+                city: "",
+                country: "US",
+                state: "",
+                street: "",
+                zipcode: "",
+            },
+            customer: {
+                email: email,
+                name: "",
+            },
+            product_id: productId,
+            quantity: 1,
+            return_url: process.env.DODO_PAYMENTS_RETURN_URL || "http://localhost:3000/checkout/success",
+            metadata: {
+                user_id: userId,
+            },
+        });
+
+        return {
+            paymentLink: subscription.payment_link || subscription.url || "",
+            subscriptionId: subscription.subscription_id || subscription.id || "",
+        };
+    } catch (error) {
+        console.error("[Dodo] Subscription creation failed:", error);
+        throw error;
+    }
 }
+
+// ─────────────────────────────────────────────
+// Customer Portal
+// ─────────────────────────────────────────────
 
 /**
  * Get the Dodo customer portal URL.
- * @param {string} customerId - The Dodo customer ID
- * @returns {string} Portal URL
+ * @param {string} customerId - The Dodo customer ID (cus_XXXXX)
+ * @returns {Promise<string>} Portal URL
  */
 export async function getCustomerPortalUrl(customerId) {
-    // TODO: Replace with real Dodo API call
-    return `https://test.dodopayments.com/portal/${customerId}`;
+    const client = getClient();
+
+    if (!client) {
+        console.warn("[Dodo] Not configured — returning mock portal URL");
+        return `https://test.dodopayments.com/portal/${customerId}`;
+    }
+
+    try {
+        const session = await client.customers.customerPortal.create(customerId, {
+            send_email: false,
+        });
+        return session.link || session.url || "";
+    } catch (error) {
+        console.error("[Dodo] Customer portal error:", error);
+        // Fallback to direct URL
+        const baseUrl = process.env.DODO_PAYMENTS_ENVIRONMENT === "live_mode"
+            ? "https://app.dodopayments.com"
+            : "https://test.dodopayments.com";
+        return `${baseUrl}/portal/${customerId}`;
+    }
 }
 
+// ─────────────────────────────────────────────
+// Webhook Verification
+// ─────────────────────────────────────────────
+
 /**
- * Verify a Dodo webhook signature.
- * @param {string} payload - Raw request body
- * @param {string} signature - Webhook signature header
- * @returns {boolean}
+ * Verify a Dodo webhook signature using standardwebhooks.
+ *
+ * @param {string} rawBody - Raw request body string
+ * @param {Object} headers - Request headers object
+ * @returns {Object} Parsed and verified webhook payload
+ * @throws {Error} If signature verification fails
  */
-export function verifyWebhookSignature(payload, signature) {
-    // TODO: Use standardwebhooks to verify
-    // const wh = new Webhook(process.env.DODO_WEBHOOK_SECRET);
-    // return wh.verify(payload, signature);
-    return true; // Mock: always valid in dev
+export function verifyWebhookSignature(rawBody, headers) {
+    const webhookSecret = process.env.DODO_WEBHOOK_SECRET;
+
+    if (!webhookSecret) {
+        console.warn("[Dodo] No webhook secret configured — skipping verification");
+        return JSON.parse(rawBody);
+    }
+
+    try {
+        const wh = new Webhook(webhookSecret);
+        const payload = wh.verify(rawBody, {
+            "webhook-id": headers.get("webhook-id") || "",
+            "webhook-timestamp": headers.get("webhook-timestamp") || "",
+            "webhook-signature": headers.get("webhook-signature") || "",
+        });
+        return payload;
+    } catch (error) {
+        console.error("[Dodo] Webhook verification failed:", error.message);
+        throw new Error("Invalid webhook signature");
+    }
 }
+
+// ─────────────────────────────────────────────
+// Plan Helpers (unchanged)
+// ─────────────────────────────────────────────
 
 /**
  * Get plan details from config by product ID.

@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { getBusinessDetails, getCompetitors, isSerperConfigured } from "@/libs/serper";
+import { fetchAuditData, fetchCompetitors } from "@/libs/data-provider";
 import { getMockAuditData } from "@/libs/mockData";
 import { calculateScore } from "@/libs/scoring";
 import { detectIssues, generateActionPlan } from "@/libs/issues";
@@ -15,44 +15,24 @@ export async function POST(req) {
             );
         }
 
-        let rawData;
-        let dataSource = "mock";
+        // Use data-provider to fetch from Serper + Outscraper + PageSpeed
+        const { data: rawData, source: dataSource } = await fetchAuditData(
+            businessName,
+            city,
+            placeId
+        );
 
-        // Try Serper for real data
-        if (isSerperConfigured()) {
-            try {
-                console.log(`[Audit] Fetching real data for "${businessName}" via Serper...`);
-
-                // 1. Get business details
-                rawData = await getBusinessDetails(businessName, city, placeId);
-
-                // 2. Get competitors based on category + city
-                if (rawData.primaryCategory && (city || rawData.businessAddress)) {
-                    const competitorCity = city || extractCity(rawData.businessAddress);
-                    if (competitorCity) {
-                        const competitors = await getCompetitors(
-                            rawData.primaryCategory,
-                            competitorCity,
-                            rawData.businessName
-                        );
-                        rawData.competitors = competitors;
-                    }
-                }
-
-                dataSource = "serper";
-                console.log(`[Audit] Got real data: ${rawData.businessName} (${rawData.reviewCount} reviews, ${rawData.averageRating}★)`);
-            } catch (error) {
-                console.error("[Audit] Serper fetch failed, falling back to mock:", error.message);
-                rawData = null;
+        // Fetch competitors if we have category + location
+        if (rawData.primaryCategory && (city || rawData.businessAddress)) {
+            const competitorCity = city || extractCity(rawData.businessAddress);
+            if (competitorCity) {
+                const competitors = await fetchCompetitors(
+                    rawData.primaryCategory,
+                    competitorCity,
+                    rawData.businessName
+                );
+                rawData.competitors = competitors;
             }
-        }
-
-        // Fallback to mock data
-        if (!rawData) {
-            rawData = getMockAuditData();
-            // Override business name if provided
-            if (businessName) rawData.businessName = businessName;
-            if (city) rawData.businessAddress = `${city}`;
         }
 
         // Run scoring engine (works with both real and mock data)
@@ -85,6 +65,7 @@ export async function POST(req) {
         // Remove internal metadata from response
         delete audit._source;
         delete audit._serperCid;
+        delete audit._outscraper;
 
         return NextResponse.json({ audit });
     } catch (error) {
@@ -109,3 +90,4 @@ function extractCity(address) {
     }
     return parts[0];
 }
+
