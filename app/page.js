@@ -13,8 +13,8 @@ export default function LandingPage() {
           <Link href="/" className="flex items-center gap-2">
             <span className="text-2xl">📊</span>
             <span className="text-lg font-bold text-white">
-              GBP<span className="text-emerald-400">Audit</span>
-              <span className="text-xs text-base-content/40">.fast</span>
+              Map<span className="text-emerald-400">score</span>
+              <span className="text-xs text-base-content/40">.io</span>
             </span>
           </Link>
           <div className="hidden md:flex items-center gap-8">
@@ -331,17 +331,17 @@ export default function LandingPage() {
             <div className="flex items-center gap-2">
               <span className="text-lg">📊</span>
               <span className="text-sm font-bold text-white">
-                GBP<span className="text-emerald-400">Audit</span>
-                <span className="text-xs text-base-content/40">.fast</span>
+                Map<span className="text-emerald-400">score</span>
+                <span className="text-xs text-base-content/40">.io</span>
               </span>
             </div>
             <div className="flex items-center gap-6 text-sm text-base-content/40">
               <Link href="/tos" className="hover:text-base-content/70 transition-colors">Terms</Link>
               <Link href="/privacy-policy" className="hover:text-base-content/70 transition-colors">Privacy</Link>
-              <a href="mailto:support@gbpaudit.fast" className="hover:text-base-content/70 transition-colors">Support</a>
+              <a href="mailto:support@mapscore.io" className="hover:text-base-content/70 transition-colors">Support</a>
             </div>
             <p className="text-xs text-base-content/30">
-              © {new Date().getFullYear()} GBPAudit.fast. All rights reserved.
+              © {new Date().getFullYear()} Mapscore.io. All rights reserved.
             </p>
           </div>
         </footer>

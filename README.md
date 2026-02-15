@@ -1,4 +1,4 @@
-# GBP Audit Tool ⚡️
+# Mapscore.io ⚡️
 
 A fast, data-driven Google Business Profile audit tool that generates scored reports with prioritized fixes, competitor comparisons, and downloadable PDFs — in 30 seconds.
 

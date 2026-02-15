@@ -57,23 +57,23 @@ const TOS = () => {
           className="leading-relaxed whitespace-pre-wrap"
           style={{ fontFamily: "sans-serif" }}
         >
-          {`Last Updated: September 26, 2023
+          {`Last Updated: February 15, 2026
 
-Welcome to ShipFast!
+Welcome to Mapscore.io!
 
-These Terms of Service ("Terms") govern your use of the ShipFast website at https://shipfa.st ("Website") and the services provided by ShipFast. By using our Website and services, you agree to these Terms.
+These Terms of Service ("Terms") govern your use of the Mapscore.io website at https://mapscore.io ("Website") and the services provided by Mapscore.io. By using our Website and services, you agree to these Terms.
 
-1. Description of ShipFast
+1. Description of Mapscore.io
 
-ShipFast is a platform that offers a JavaScript code boilerplate to assist entrepreneurs in launching their startups more efficiently.
+Mapscore.io is a platform that offers Google Business Profile (GBP) audit tools to assist businesses and SEO professionals in improving their local search rankings.
 
-2. Ownership and Usage Rights
+2. Subscriptions and Usage Rights
 
-When you purchase a package from ShipFast, you gain the right to download and use the code provided for creating applications. You own the code you create but do not have the right to resell it. We offer a full refund within 7 days of purchase, as specified in our refund policy.
+When you subscribe to a plan on Mapscore.io, you gain access to our auditing tools and reports according to the limits of your plan. You may use the reports for your own business or for your clients. You may not resell access to the tool itself. Subscription details and cancellation policies are available on our pricing page.
 
 3. User Data and Privacy
 
-We collect and store user data, including name, email, and payment information, as necessary to provide our services. For details on how we handle your data, please refer to our Privacy Policy at https://shipfa.st/privacy-policy.
+We collect and store user data, including name, email, and payment information, as necessary to provide our services. For details on how we handle your data, please refer to our Privacy Policy at https://mapscore.io/privacy-policy.
 
 4. Non-Personal Data Collection
 
@@ -81,15 +81,15 @@ We use web cookies to collect non-personal data for the purpose of improving our
 
 5. Governing Law
 
-These Terms are governed by the laws of France.
+These Terms are governed by the laws of the United States.
 
 6. Updates to the Terms
 
-We may update these Terms from time to time. Users will be notified of any changes via email.
+We may update these Terms from time to time. Users will be notified of any significant changes via email.
 
-For any questions or concerns regarding these Terms of Service, please contact us at marc@shipfa.st.
+For any questions or concerns regarding these Terms of Service, please contact us at support@mapscore.io.
 
-Thank you for using ShipFast!`}
+Thank you for using Mapscore.io!`}
         </pre>
       </div>
     </main>

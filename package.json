@@ -1,5 +1,5 @@
 {
-  "name": "ship-fast-code",
+  "name": "mapscore-io",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -12,6 +12,7 @@
   "dependencies": {
     "@auth/mongodb-adapter": "^3.7.4",
     "@clerk/nextjs": "^6.37.4",
+    "@clerk/themes": "^2.4.52",
     "@dodopayments/nextjs": "^0.3.4",
     "@headlessui/react": "^2.2.0",
     "axios": "^1.7.9",

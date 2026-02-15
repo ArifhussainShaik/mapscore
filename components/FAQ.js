@@ -37,7 +37,7 @@ const faqList = [
       "Our scoring engine evaluates your profile across 6 key categories: Profile Completeness, Review Signals, Visual Content, Activity & Engagement, Website Performance, and Competitive Position. Each category is weighted based on its impact on local search rankings, and your total score (0-100) determines your grade from A (excellent) to F (needs work).",
   },
   {
-    question: "Is the GBP audit tool free to use?",
+    question: "Is Mapscore.io free to use?",
     answer: (
       <div className="space-y-2 leading-relaxed">
         <p>

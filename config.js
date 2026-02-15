@@ -1,11 +1,11 @@
 const config = {
   // REQUIRED
-  appName: "GBPAudit.fast",
+  appName: "Mapscore.io",
   // REQUIRED: a short description of your app for SEO tags
   appDescription:
     "How healthy is your Google Business Profile? Get a scored audit report with prioritized fixes, competitor comparison, and downloadable PDF in 30 seconds.",
   // REQUIRED (no https://, no trailing slash)
-  domainName: "gbpaudit.fast",
+  domainName: "mapscore.io",
   crisp: {
     id: "",
     onlyShowOnRoutes: ["/"],
@@ -58,9 +58,9 @@ const config = {
     cdn: "https://cdn-id.cloudfront.net/",
   },
   resend: {
-    fromNoReply: `GBPAudit <noreply@gbpaudit.fast>`,
-    fromAdmin: `GBPAudit Team <team@gbpaudit.fast>`,
-    supportEmail: "support@gbpaudit.fast",
+    fromNoReply: `Mapscore <noreply@mapscore.io>`,
+    fromAdmin: `Mapscore Team <team@mapscore.io>`,
+    supportEmail: "support@mapscore.io",
   },
   colors: {
     theme: "dark",

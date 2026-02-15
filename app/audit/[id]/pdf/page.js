@@ -66,8 +66,8 @@ export default function AuditPDFView() {
                         <div className="pdf-logo">
                             <span style={{ fontSize: "24px" }}>📊</span>
                             <span>
-                                GBP<span style={{ color: "#10b981" }}>Audit</span>
-                                <span style={{ fontSize: "10px", opacity: 0.5 }}>.fast</span>
+                                Map<span style={{ color: "#10b981" }}>score</span>
+                                <span style={{ fontSize: "10px", opacity: 0.5 }}>.io</span>
                             </span>
                         </div>
                         <div className="pdf-date">
@@ -126,7 +126,7 @@ export default function AuditPDFView() {
                     </div>
 
                     <div className="pdf-footer">
-                        <span>GBPAudit.fast — Confidential Audit Report</span>
+                        <span>Mapscore.io — Confidential Audit Report</span>
                         <span>Page 1</span>
                     </div>
                 </div>
@@ -136,7 +136,7 @@ export default function AuditPDFView() {
                     <div className="pdf-header">
                         <div className="pdf-logo">
                             <span style={{ fontSize: "24px" }}>📊</span>
-                            <span>GBP<span style={{ color: "#10b981" }}>Audit</span><span style={{ fontSize: "10px", opacity: 0.5 }}>.fast</span></span>
+                            <span>Map<span style={{ color: "#10b981" }}>score</span><span style={{ fontSize: "10px", opacity: 0.5 }}>.io</span></span>
                         </div>
                         <div className="pdf-date">{audit.businessName}</div>
                     </div>
@@ -170,7 +170,7 @@ export default function AuditPDFView() {
                     </div>
 
                     <div className="pdf-footer">
-                        <span>GBPAudit.fast — Confidential Audit Report</span>
+                        <span>Mapscore.io — Confidential Audit Report</span>
                         <span>Page 2</span>
                     </div>
                 </div>
@@ -180,7 +180,7 @@ export default function AuditPDFView() {
                     <div className="pdf-header">
                         <div className="pdf-logo">
                             <span style={{ fontSize: "24px" }}>📊</span>
-                            <span>GBP<span style={{ color: "#10b981" }}>Audit</span><span style={{ fontSize: "10px", opacity: 0.5 }}>.fast</span></span>
+                            <span>Map<span style={{ color: "#10b981" }}>score</span><span style={{ fontSize: "10px", opacity: 0.5 }}>.io</span></span>
                         </div>
                         <div className="pdf-date">{audit.businessName}</div>
                     </div>
@@ -275,12 +275,12 @@ export default function AuditPDFView() {
                     <div className="pdf-cta">
                         <p>Need help implementing these fixes?</p>
                         <p style={{ fontWeight: 700, color: "#10b981" }}>
-                            Visit gbpaudit.fast to schedule a consultation or upgrade to Pro for ongoing monitoring.
+                            Visit mapscore.io to schedule a consultation or upgrade to Pro for ongoing monitoring.
                         </p>
                     </div>
 
                     <div className="pdf-footer">
-                        <span>GBPAudit.fast — Confidential Audit Report</span>
+                        <span>Mapscore.io — Confidential Audit Report</span>
                         <span>Page 3</span>
                     </div>
                 </div>
