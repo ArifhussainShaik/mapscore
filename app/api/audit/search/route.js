@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { searchBusiness, isSerperConfigured } from "@/libs/serper";
 import { getMockSearchResults } from "@/libs/mockData";
 
 export async function POST(req) {
@@ -12,11 +13,26 @@ export async function POST(req) {
             );
         }
 
-        // TODO: Replace with real SerpAPI / Google Maps search
-        // For MVP, return mock results
+        // Use Serper for real data, fall back to mock
+        if (isSerperConfigured()) {
+            try {
+                const results = await searchBusiness(businessName, city);
+
+                if (results.length > 0) {
+                    return NextResponse.json({
+                        results,
+                        query: { businessName, city },
+                        source: "serper",
+                    });
+                }
+            } catch (error) {
+                console.error("Serper search error, falling back to mock:", error.message);
+            }
+        }
+
+        // Fallback: mock data
         const results = getMockSearchResults();
 
-        // Filter by name if provided (case-insensitive)
         const filtered = results.filter(
             (r) =>
                 r.name.toLowerCase().includes(businessName.toLowerCase()) ||
@@ -26,6 +42,7 @@ export async function POST(req) {
         return NextResponse.json({
             results: filtered.length > 0 ? filtered : results,
             query: { businessName, city },
+            source: "mock",
         });
     } catch (error) {
         console.error("Search error:", error);
