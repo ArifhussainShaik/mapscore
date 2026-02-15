@@ -14,16 +14,20 @@ export const viewport = {
 
 export const metadata = getSEOTags();
 
+import { ClerkProvider } from '@clerk/nextjs'
+
 export default function RootLayout({ children }) {
 	return (
-		<html
-			lang="en"
-			data-theme={config.colors.theme}
-			className={font.className}
-		>
-			<body>
-				<ClientLayout>{children}</ClientLayout>
-			</body>
-		</html>
+		<ClerkProvider>
+			<html
+				lang="en"
+				data-theme={config.colors.theme}
+				className={font.className}
+			>
+				<body>
+					<ClientLayout>{children}</ClientLayout>
+				</body>
+			</html>
+		</ClerkProvider>
 	);
 }

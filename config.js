@@ -14,10 +14,7 @@ const config = {
     plans: [
       {
         isFeatured: true,
-        productId:
-          process.env.NODE_ENV === "development"
-            ? "prd_test_pro_plan"
-            : "prd_live_pro_plan",
+        productId: "prd_test_pro_plan", // TODO: Replace with real Product ID from Dodo Dashboard
         name: "Pro",
         description: "For freelancers & consultants",
         price: 29,
@@ -33,10 +30,7 @@ const config = {
         ],
       },
       {
-        productId:
-          process.env.NODE_ENV === "development"
-            ? "prd_test_agency_plan"
-            : "prd_live_agency_plan",
+        productId: "prd_test_agency_plan", // TODO: Replace with real Product ID from Dodo Dashboard
         name: "Agency",
         description: "For teams & agencies",
         price: 79,
