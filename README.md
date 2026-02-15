@@ -1,37 +1,98 @@
-# ShipFast — Javascript
+# GBP Audit Tool ⚡️
 
-Hey maker 👋 it's Marc from [ShipFast](https://shipfa.st/docs). Let's get your startup off the ground, FAST ⚡️
+A fast, data-driven Google Business Profile audit tool that generates scored reports with prioritized fixes, competitor comparisons, and downloadable PDFs — in 30 seconds.
 
-<sub>**Watch/Star the repo to be notified when updates are pushed**</sub>
+![GBP Audit Tool](https://img.shields.io/badge/Next.js-15-black?style=flat-square&logo=next.js) ![License](https://img.shields.io/badge/license-private-red?style=flat-square)
 
-## Get Started
+## ✨ Features
 
-1. Follow the [Get Started Tutorial](https://shipfa.st/docs) to clone the repo and run your local server 💻
+- **100-Point Audit Scoring** — Comprehensive analysis across 8 categories (Basic Info, Photos, Reviews, Posts, Q&A, Attributes, Products/Services, Competitive)
+- **Business Autocomplete** — Real-time Google Places API integration with debounced search
+- **Detailed Reports** — Category breakdowns with issue detection and prioritized fix recommendations
+- **PDF Export** — Print-ready 3-page PDF reports with one click
+- **User Authentication** — Google OAuth & Email login via NextAuth.js
+- **Dashboard** — Track saved audits, monitoring alerts, and scores over time
+- **Competitor Comparison** — Gauge & performance rings comparing your profile vs competitors
 
-<sub>**Looking for the /pages router version?** Use this [documentation](https://shipfa.st/docs-old) instead</sub>
+## 🛠 Tech Stack
 
-2. Follow the [Ship In 5 Minutes Tutorial](https://shipfa.st/docs/tutorials/ship-in-5-minutes) to learn the foundation and ship your app quickly ⚡️
+- **Framework:** Next.js 15 (App Router)
+- **Styling:** DaisyUI 5 + Custom CSS with glassmorphism design
+- **Auth:** NextAuth.js (Google OAuth + Email)
+- **Database:** MongoDB Atlas
+- **APIs:** Google Places Autocomplete, Google Business Profile
+- **Payments:** Dodo Payments
 
-## Links
+## 🚀 Getting Started
 
--   [📚 Documentation](https://shipfa.st/docs)
--   [📣 Updates](https://shipfast.beehiiv.com/)
--   [🧑‍💻 Discord](https://shipfa.st/dashboard)
--   [🥇 Leaderboard](https://shipfa.st/leaderboard)
+### 1. Clone & Install
 
-## Support
+```bash
+git clone https://github.com/ArifhussainShaik/GBP-audit-tool.git
+cd GBP-audit-tool
+npm install
+```
 
-Reach out at hello@shipfa.st
+### 2. Configure Environment
 
-Let's ship it, FAST ⚡️
+Copy `.env.example` to `.env.local` and fill in your credentials:
 
+```bash
+cp .env.example .env.local
+```
 
-**📈 Grow your startup with [DataFast](https://datafa.st?ref=shipfast_readme)**
+Required variables:
+| Variable | Description |
+|----------|-------------|
+| `NEXTAUTH_SECRET` | Random string for session encryption |
+| `GOOGLE_ID` | Google OAuth Client ID |
+| `GOOGLE_SECRET` | Google OAuth Client Secret |
+| `GOOGLE_PLACES_API_KEY` | Google Places API key for autocomplete |
+| `MONGODB_URI` | MongoDB Atlas connection string |
 
--   Analyze your traffic
--   Get insights on your customers
--   Make data-driven decisions
+### 3. Run Development Server
 
-ShipFast members get 30% OFF on all plans! 🎁
+```bash
+npm run dev
+```
 
-![datafast](https://github.com/user-attachments/assets/085453a6-8a66-45be-b7ea-a7a08e856ed8)
+Open [http://localhost:3000](http://localhost:3000) to see the app.
+
+### 4. Build for Production
+
+```bash
+npm run build
+npm start
+```
+
+## 📁 Project Structure
+
+```
+app/
+├── page.js                    # Landing page with search bar
+├── dashboard/page.js          # User dashboard with saved audits
+├── audit/[id]/page.js         # Audit report page
+├── audit/[id]/pdf/page.js     # Print-ready PDF view
+├── api/
+│   ├── places/autocomplete/   # Google Places API proxy
+│   ├── payments/              # Dodo payment integration
+│   └── webhooks/              # Payment webhooks
+components/
+├── SearchBar.jsx              # Business search with autocomplete
+├── ButtonSignin.js            # Auth-aware login button
+└── ...
+libs/
+├── auth.js                    # NextAuth configuration
+├── mongo.js                   # MongoDB connection
+└── auditEngine.js             # Scoring & issue detection engine
+```
+
+## 👤 Author
+
+**Shaik Arif Hussain**
+- GitHub: [@ArifhussainShaik](https://github.com/ArifhussainShaik)
+- Email: shaikarifhussain.ak@gmail.com
+
+## 📄 License
+
+This project is private and not open-sourced.
