@@ -29,9 +29,8 @@ export default function SearchBar({ variant = "hero" }) {
         return () => document.removeEventListener("mousedown", handleClickOutside);
     }, []);
 
-    // Debounced search function
     const searchPlaces = useCallback(async (query) => {
-        if (query.trim().length < 3) {
+        if (query.trim().length < 4) {
             setSuggestions([]);
             setShowSuggestions(false);
             return;
@@ -68,7 +67,11 @@ export default function SearchBar({ variant = "hero" }) {
 
     // Handle selecting a suggestion
     const handleSelectSuggestion = (suggestion) => {
-        setBusinessName(suggestion.name);
+        const fullText = suggestion.address
+            ? `${suggestion.name}, ${suggestion.address}`
+            : suggestion.name;
+
+        setBusinessName(fullText);
         setPlaceId(suggestion.placeId);
         setShowSuggestions(false);
         setSuggestions([]);
@@ -186,14 +189,16 @@ export default function SearchBar({ variant = "hero" }) {
                                         ${index < suggestions.length - 1 ? "border-b border-base-content/5" : ""}
                                     `}
                                 >
-                                    <span className="text-emerald-400 mt-0.5 flex-shrink-0">📍</span>
-                                    <div className="min-w-0">
+                                    <span className="text-emerald-400 mt-0 flex-shrink-0">📍</span>
+                                    <div className="min-w-0 flex items-center gap-2">
                                         <p className="text-sm font-semibold text-white truncate">
                                             {suggestion.name}
                                         </p>
-                                        <p className="text-xs text-base-content/50 truncate">
-                                            {suggestion.address}
-                                        </p>
+                                        {suggestion.address && (
+                                            <p className="text-xs text-base-content/60 truncate">
+                                                — {suggestion.address}
+                                            </p>
+                                        )}
                                     </div>
                                 </button>
                             ))}

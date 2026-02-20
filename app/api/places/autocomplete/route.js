@@ -4,7 +4,7 @@ export async function GET(req) {
     const { searchParams } = new URL(req.url);
     const query = searchParams.get("query");
 
-    if (!query || query.trim().length < 3) {
+    if (!query || query.trim().length < 4) {
         return NextResponse.json({ predictions: [] });
     }
 
